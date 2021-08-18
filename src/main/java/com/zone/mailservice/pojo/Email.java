@@ -17,7 +17,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class Email implements Serializable {
 
-    private String[] tos;
+    private String to;
 
     private String subject;
 

@@ -29,7 +29,7 @@ public class SimpleMailServiceImpl implements IMailService<Email> {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(from);
         message.setSubject(email.getSubject());
-        message.setTo(email.getTos());
+        message.setTo(email.getTo());
         message.setText(email.getContent());
 
         javaMailSender.send(message);

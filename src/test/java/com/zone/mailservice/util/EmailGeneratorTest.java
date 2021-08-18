@@ -1,4 +1,4 @@
-package com.zone.mailservice.service.impl;
+package com.zone.mailservice.util;
 
 import com.zone.mailservice.pojo.Email;
 import org.junit.jupiter.api.Test;
@@ -7,22 +7,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
- * @Classname SimpleMailServiceImplTest
+ * @Classname EmailGeneratorTest
  * @Description
- * @Date 2021/8/18 12:33 上午
+ * @Date 2021/8/18 10:50 下午
  * @Created by zone
  */
-
 @SpringBootTest
 @MapperScan("com.zone.mailservice.dao")
-public class SimpleMailServiceImplTest {
+public class EmailGeneratorTest {
 
     @Autowired
-    private SimpleMailServiceImpl simpleMailService;
+    private EmailGenerator emailGenerator;
 
     @Test
-    public void sendMailTest(){
-        Email email = new Email("zonedx@163.com","生日祝福","生日快乐");
-        simpleMailService.sendMail(email);
+    public void newMailsTest() {
+        Email[] emails = emailGenerator.newMails();
+        System.out.println(emails.length);
     }
+
 }
