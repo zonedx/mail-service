@@ -2,6 +2,7 @@ package com.zone.mailservice.util;
 
 import com.zone.mailservice.pojo.User;
 import org.junit.jupiter.api.Test;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.util.HashMap;
  * @Created by zone
  */
 @SpringBootTest
+@MapperScan("com.zone.mailservice.dao")
 public class UserInfoLoaderTest {
 
     @Test
