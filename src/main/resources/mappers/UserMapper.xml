@@ -24,6 +24,12 @@
         from user
         where id = #{id,jdbcType=INTEGER}
     </select>
+    <select id="selectByEmail" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where email = #{email,jdbcType=INTEGER}
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user
     where id = #{id,jdbcType=INTEGER}
@@ -52,17 +58,22 @@
                 send_result = #{sendResult,jdbcType=INTEGER},
             </if>
             <if test="failureCount != null">
-                failure_count = #{failureCount,jdbcType=VARCHAR},
+                failure_count = #{failureCount,jdbcType=INTEGER},
             </if>
-                update_time = now(),
+            update_time = now(),
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
 
-    <update id="updateFailureCount" parameterType="java.lang.Integer">
+    <update id="updateByEmail" parameterType="map">
+        update user
+        set send_result = #{sendResult},failure_count = #{failureCount},update_time = now()
+        where email = #{email, jdbcType=VARCHAR}
+    </update>
+    <update id="updateFailureCount" parameterType="java.lang.String">
         update user
         set send_result = send_result + 1, update_time = now()
-        where id = #{id}
+        where email = #{email}
     </update>
 
 </mapper>

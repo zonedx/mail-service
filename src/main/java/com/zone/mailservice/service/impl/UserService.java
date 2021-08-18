@@ -59,6 +59,30 @@ public class UserService {
         return ServerResponse.createBySuccessMessage("更新用户信息成功!");
     }
 
+    public ServerResponse<String> updateByEmail(String email,Integer sendResult, Integer failureCount){
+        int result = userMapper.updateByEmail(email,sendResult,failureCount);
+        if (result == 0){
+            return ServerResponse.createByErrorMessage("更新用户信息失败！");
+        }
+        return ServerResponse.createBySuccessMessage("更新用户信息成功!");
+    }
+
+    public ServerResponse<String> updateFailureCount(String email){
+        int result = userMapper.updateFailureCount(email);
+        if (result == 0){
+            return ServerResponse.createByErrorMessage("更新用户信息失败！");
+        }
+        return ServerResponse.createBySuccessMessage("更新用户信息成功!");
+    }
+
+    public ServerResponse<User> findUserByEmail(String email){
+        User user = userMapper.selectByEmail(email);
+        if (user == null){
+            return ServerResponse.createByErrorMessage("数据库出错！");
+        }
+        return ServerResponse.createBySuccess(user);
+    }
+
     public ServerResponse<List<User>> findUserByBirthday(String birthday){
         List<User> userList = new ArrayList<>();
         HashMap<Integer,User> userInfo = dataCheckService.getUserInfo();

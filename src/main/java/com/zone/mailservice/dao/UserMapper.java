@@ -14,11 +14,16 @@ import org.springframework.stereotype.Repository;
 public interface UserMapper {
     User selectByPrimaryKey(Integer id);
 
+    User selectByEmail(String email);
+
     int deleteByPrimaryKey(Integer id);
 
     int insert(User user);
 
     int updateByPrimaryKeySelective(User user);
 
-    int updateFailureCount(Integer id);
+    int updateByEmail(@Param("email") String email,@Param("sendResult")Integer sendResult,@Param("failureCount")Integer failureCount);
+
+    int updateFailureCount(String email);
+
 }

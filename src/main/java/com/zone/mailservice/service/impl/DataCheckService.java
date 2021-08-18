@@ -24,7 +24,6 @@ import java.util.HashMap;
 @Component
 @Order(value = 1)
 @Slf4j
-@EnableScheduling
 public class DataCheckService implements ApplicationRunner {
 
     private HashMap<Integer, User> userInfo = new HashMap<>();
@@ -38,6 +37,7 @@ public class DataCheckService implements ApplicationRunner {
         checkData();
     }
 
+//    @Scheduled(cron = "*/10 * * * * ?")  test data
     //每天凌晨1点更新数据
     @Scheduled(cron = "0 0 1 * * ?")
     private void checkData(){

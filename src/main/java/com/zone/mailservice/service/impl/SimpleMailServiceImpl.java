@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
  * @Date 2021/8/17 8:52 下午
  * @Created by zone
  */
-@Service
+@Service("simpleMailService")
 public class SimpleMailServiceImpl implements IMailService<Email> {
 
     @Autowired
