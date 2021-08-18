@@ -5,6 +5,7 @@ import com.zone.mailservice.common.ServerResponse;
 import com.zone.mailservice.dao.UserMapper;
 import com.zone.mailservice.pojo.User;
 import com.zone.mailservice.service.impl.UserService;
+import com.zone.mailservice.util.DateTimeUtils;
 import com.zone.mailservice.util.UserInfoLoader;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +16,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @Classname UserServiceTest
@@ -41,6 +44,14 @@ public class UserServiceTest {
             ServerResponse response = userService.insert(user);
             System.out.println(response.getMsg());
         }
+    }
 
+    @Test
+    public void  findUserByBirthdayTest(){
+
+        Date date = new Date(System.currentTimeMillis());
+
+        ServerResponse<List<User>> response = userService.findUserByBirthday(DateTimeUtils.dateToStr(date,"MM-dd"));
+        System.out.println(response.getStatus() + "-" + response.getData());
     }
 }

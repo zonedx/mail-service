@@ -59,4 +59,7 @@ public class DataCheckService implements ApplicationRunner {
         log.info("数据检查完成！");
     }
 
+    public HashMap<Integer, User> getUserInfo(){
+        return userInfo;
+    }
 }

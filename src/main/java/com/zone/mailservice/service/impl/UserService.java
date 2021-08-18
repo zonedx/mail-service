@@ -3,8 +3,13 @@ package com.zone.mailservice.service.impl;
 import com.zone.mailservice.common.ServerResponse;
 import com.zone.mailservice.dao.UserMapper;
 import com.zone.mailservice.pojo.User;
+import com.zone.mailservice.util.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * @Classname UserService
@@ -17,6 +22,10 @@ public class UserService {
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private DataCheckService dataCheckService;
+
+    private static final String SDF = "MM-dd";
 
     public ServerResponse<String> insert(User user){
 
@@ -48,5 +57,25 @@ public class UserService {
             return ServerResponse.createByErrorMessage("更新用户信息失败！");
         }
         return ServerResponse.createBySuccessMessage("更新用户信息成功!");
+    }
+
+    public ServerResponse<List<User>> findUserByBirthday(String birthday){
+        List<User> userList = new ArrayList<>();
+        HashMap<Integer,User> userInfo = dataCheckService.getUserInfo();
+        if (userInfo.isEmpty()){
+            return ServerResponse.createByErrorMessage("暂无用户数据");
+        }
+
+        for (Integer key : userInfo.keySet()){
+            User user = userInfo.get(key);
+            if (birthday.equals(DateTimeUtils.dateToStr(user.getBirthday(), SDF))){
+                userList.add(user);
+            }
+        }
+        if (userList.size() == 0){
+            return ServerResponse.createByErrorMessage("今天没有用户生日");
+        }
+
+        return ServerResponse.createBySuccess(userList);
     }
 }

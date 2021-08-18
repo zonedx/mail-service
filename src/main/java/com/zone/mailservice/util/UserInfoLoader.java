@@ -19,18 +19,18 @@ import java.util.HashMap;
 
 public class UserInfoLoader {
 
-    private static final String prefix = "{";
-    private static final String userInfoJson = "database/user-info.txt";
-    private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    private static final String PREFIX = "{";
+    private static final String USER_INFO_JSON = "database/user-info.txt";
+    private static final String sdf = "yyyy-MM-dd";
 
     public static void loadDataFromFile(HashMap<Integer, User> userInfo) throws IOException {
-        InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(userInfoJson);
+        InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(USER_INFO_JSON);
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 
         String s;
         User user;
         while ((s = reader.readLine()) != null) {
-            if (s.startsWith(prefix)){
+            if (s.startsWith(PREFIX)){
 
                 String[] splits = s.split(",");
                 user = new User();
@@ -46,11 +46,7 @@ public class UserInfoLoader {
                             break;
                         case "birthday":
                             String birthdayStr = removePunctuation(splits[i].substring(splits[i].indexOf(":") +1));
-                            try {
-                                user.setBirthday(sdf.parse(birthdayStr));
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
+                            user.setBirthday(DateTimeUtils.strToDate(birthdayStr,sdf));
                             break;
                         case "email":
                             user.setEmail(removePunctuation(splits[i].substring(splits[i].indexOf(":") +1)));
