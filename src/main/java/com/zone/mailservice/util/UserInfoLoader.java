@@ -6,8 +6,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
 /**
@@ -21,7 +19,7 @@ public class UserInfoLoader {
 
     private static final String PREFIX = "{";
     private static final String USER_INFO_JSON = "database/user-info.txt";
-    private static final String sdf = "yyyy-MM-dd";
+    private static final String SDF = "yyyy-MM-dd";
 
     public static void loadDataFromFile(HashMap<Integer, User> userInfo) throws IOException {
         InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(USER_INFO_JSON);
@@ -46,7 +44,7 @@ public class UserInfoLoader {
                             break;
                         case "birthday":
                             String birthdayStr = removePunctuation(splits[i].substring(splits[i].indexOf(":") +1));
-                            user.setBirthday(DateTimeUtils.strToDate(birthdayStr,sdf));
+                            user.setBirthday(DateTimeUtils.strToDate(birthdayStr, SDF));
                             break;
                         case "email":
                             user.setEmail(removePunctuation(splits[i].substring(splits[i].indexOf(":") +1)));
